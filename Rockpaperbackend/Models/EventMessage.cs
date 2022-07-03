@@ -7,7 +7,7 @@ namespace Rockpaperbackend.Models
 {
     public class EventMessage
     {
-        public string User {get; set;}
-        public string Message { get; set; }
+        public string? User {get; set;}
+        public string? Message { get; set; }
     }
 }

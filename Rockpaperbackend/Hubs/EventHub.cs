@@ -17,12 +17,12 @@ namespace Rockpaperbackend.Hubs
         public async Task JoinRoom(UserConnections userConnection)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room);
-            await Clients.Group(userConnection.Room).SendAsync("Recievemessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
+            await Clients.Group(userConnection.Room).SendAsync("RecieveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
         }
-        // public async Task SendMessage(EventMessage message)
-        // {
-        //     await Clients.All.ReceiveMessage(message);
-        // }
+        public async Task SendMessage(EventMessage message)
+        {
+            await Clients.All.SendAsync("SendMessage", message);
+        }
         
     }
 }

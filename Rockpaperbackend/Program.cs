@@ -5,16 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSignalR();
-// builder.Services.AddCors(options =>
-// {
-//     options.AddDefaultPolicy(policy =>
-//                           {
-//                               policy.WithOrigins("http://localhost:3000","https://localhost:3000")
-//                                                   .AllowAnyHeader()
-//                                                   .AllowAnyMethod()
-//                                                   .AllowCredentials();
-//                           });
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+                          {
+                              policy.WithOrigins("http://localhost:3000","https://localhost:3000")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod()
+                                                  .AllowCredentials();
+                          });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,11 +36,11 @@ app.MapControllers();
 
 app.UseRouting();
 
-// app.UseCors();
+app.UseCors();
 
-app.UseEndpoints(endpt => 
-{
-    endpt.MapHub<EventHub>("/chats");
-});
-// app.MapHub<EventHub>("/chats");
+// app.UseEndpoints(endpt => 
+// {
+//     endpt.MapHub<EventHub>("/chats");
+// });
+app.MapHub<EventHub>("/chats");
 app.Run();

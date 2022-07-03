@@ -1,9 +1,11 @@
 import React from "react";
 import Event from "./Components/Event";
+import Header from "./Components/Header";
 
 function App() {
   return (
-    <div style={{ margin: "0 30%" }}>
+    <div className="container">
+      <Header/>
       <Event />
     </div>
   );
