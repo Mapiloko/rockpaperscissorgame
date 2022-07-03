@@ -1,2 +1,4 @@
 rockpaperscissor-ui/node_modules/
 Rockpaperbackend/.vscode/
+Rockpaperbackend/bin/
+Rockpaperbackend/obj/

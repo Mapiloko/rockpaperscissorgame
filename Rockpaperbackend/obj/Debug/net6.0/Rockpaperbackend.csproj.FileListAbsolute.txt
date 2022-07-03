@@ -25,3 +25,6 @@ C:\Users\user\Videos\IDR\Rockpaperbackend\obj\Debug\net6.0\refint\Rockpaperbacke
 C:\Users\user\Videos\IDR\Rockpaperbackend\obj\Debug\net6.0\Rockpaperbackend.pdb
 C:\Users\user\Videos\IDR\Rockpaperbackend\obj\Debug\net6.0\Rockpaperbackend.genruntimeconfig.cache
 C:\Users\user\Videos\IDR\Rockpaperbackend\obj\Debug\net6.0\ref\Rockpaperbackend.dll
+C:\Users\user\Videos\IDR\Rockpaperbackend\bin\Debug\net6.0\Microsoft.AspNetCore.NodeServices.dll
+C:\Users\user\Videos\IDR\Rockpaperbackend\bin\Debug\net6.0\Microsoft.AspNetCore.SpaServices.dll
+C:\Users\user\Videos\IDR\Rockpaperbackend\bin\Debug\net6.0\Newtonsoft.Json.dll
