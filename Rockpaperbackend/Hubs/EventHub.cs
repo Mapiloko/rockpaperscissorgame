@@ -9,19 +9,55 @@ namespace Rockpaperbackend.Hubs
 {
     public class EventHub: Hub 
     {
-        private readonly string _botUser;
+        private readonly string[] _machineSelections;
         public EventHub()
         {
-            _botUser = "Hey everyone";
+            _machineSelections = new string[] { "rock", "paper", "scissor" };
         }
-        public async Task JoinRoom(UserConnections userConnection)
+        public async Task sendSelection(string selected)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room);
-            await Clients.Group(userConnection.Room).SendAsync("RecieveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
-        }
-        public async Task SendMessage(EventMessage message)
-        {
-            await Clients.All.SendAsync("SendMessage", message);
+            Random rnd = new Random();
+            int index = rnd.Next(_machineSelections.Length);
+            string machineSelection = _machineSelections[index];
+            string result;
+
+            int ind = Array.IndexOf(_machineSelections, selected);
+
+            if(machineSelection == selected)
+            {
+                result = "draw";
+            }
+            else
+            {
+                switch (ind) 
+                {
+                    case 0:
+                        {
+                            if(index == 2)
+                                result = "win";
+                            else
+                                result = "loss";
+                        }
+                        break;
+                    case 1:
+                        {
+                            if(index == 0)
+                                result = "win";
+                            else
+                                result = "loss";
+                        }
+                        break;
+                    default:
+                        {
+                            if(index == 1)
+                                result = "win";
+                            else
+                                result = "loss";
+                        }
+                        break;
+                }
+            }
+            await Clients.All.SendAsync("SendSelection", result, machineSelection);
         }
         
     }

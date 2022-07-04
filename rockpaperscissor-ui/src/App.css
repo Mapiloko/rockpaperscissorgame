@@ -41,7 +41,7 @@
   justify-content: space-between;
 }
 .rock{
-  background-image: url("../public/rock.PNG");
+  background-image: url("../public/rock.png");
   background-repeat: no-repeat;
   background-size: contain;
   height: 70px;
@@ -67,7 +67,7 @@
   padding: 0;
 }
 .selected-rock{
-  background-image: url("../public/rock.PNG");
+  background-image: url("../public/rock.png");
   background-repeat: no-repeat;
   background-size: contain;
   height: 70px;

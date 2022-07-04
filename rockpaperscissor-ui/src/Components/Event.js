@@ -8,45 +8,26 @@ const Event = () => {
       .withAutomaticReconnect()
       .build()
   );
-  const [user, setUser] = useState("");
   const [selected, setSelected] = useState("");
-  const [room, setRoom] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [selection, setSelection] = useState("");
+  const [result, setResult] = useState("");
 
   useEffect(() => {
-    connection.on("SendMessage", (message) => {
-      console.log(message);
-      // setMessages(messages => [...messages, {user, message}])
+    connection.on("SendSelection", (result, selectionM) => {
+      console.log(result, selectionM);
+      setSelection(selectionM);
+      setResult(result);
     });
-  }, [messages, connection]);
+  }, [connection]);
 
-  const onSubmit = async (e) => {
+  const startGame = async (e) => {
     e.preventDefault();
-    const chatMessage = { user: user, room: room };
-    try {
-      connection.on("RecieveMessage", (user, message) => {
-        setMessages((messages) => [...messages, { user, message }]);
-      });
-
-      await connection.start();
-      await connection.invoke("JoinRoom", chatMessage);
-      // setConnection(connection);
-    } catch (e) {
-      console.log(e);
-    }
+    await connection.start();
   };
 
-  const startGame = (e) => {
-    e.preventDefault();
-    console.log(e);
-  };
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-
+  const sendSelection = async (event) => {
     try {
-      await connection.start();
-      await connection.invoke("SendMessage", { user, room });
+      await connection.invoke("sendSelection", event );
     } catch (e) {
       console.log(e);
     }
@@ -79,13 +60,13 @@ const Event = () => {
           <p className="text-center select h2">Make Your Selection</p>
           <div className="row">
             <div className="col-md-4 text-end">
-              <button id="rock" className="rock" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}} ></button>
+              <button id="rock" className="rock" onClick={e =>{ e.preventDefault(); setSelected(e.target.id); sendSelection(e.target.id);}} ></button>
             </div>
             <div className="col-md-4 text-center">
-              <button id="paper" className="paper" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}}></button>
+              <button id="paper" className="paper" onClick={e =>{ e.preventDefault(); setSelected(e.target.id); sendSelection(e.target.id);}}></button>
             </div>
             <div className="col-md-4">
-              <button id="scissor" className="scissor" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}}></button>
+              <button id="scissor" className="scissor" onClick={e =>{ e.preventDefault(); setSelected(e.target.id); sendSelection(e.target.id);}}></button>
             </div>
           </div>
           <div className="selected">
@@ -100,53 +81,6 @@ const Event = () => {
           <h2 className="users">User B</h2>
         </div>
       </div>
-      <p>{selected}</p>
-
-      <form>
-        <label htmlFor="user">User:</label>
-        <br />
-        <input
-          id="user"
-          name="user"
-          onChange={(e) => setUser(e.target.value)}
-        />
-        <br />
-        <label htmlFor="room">Room:</label>
-        <br />
-        <input
-          type="text"
-          id="room"
-          name="room"
-          onChange={(e) => setRoom(e.target.value)}
-        />
-        <br />
-        <br />
-        <button
-          className="btn btn-primary"
-          disabled={!user || !room}
-          onClick={(e) => onSubmit(e)}
-        >
-          Submit
-        </button>
-        <button
-          className="btn btn-primary"
-          disabled={!user || !room}
-          onClick={(e) => sendMessage(e)}
-        >
-          Send Msg
-        </button>
-
-        <br></br>
-        <br></br>
-        {/* {messages.map((msg, index)=>
-                <div key={index}>
-                    <p>{msg.message}</p>
-                    <p>{msg.user}</p>
-                </div>
-            )
-            } */}
-      </form>
-      <hr />
     </div>
   );
 };

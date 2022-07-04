@@ -37,10 +37,5 @@ app.MapControllers();
 app.UseRouting();
 
 app.UseCors();
-
-// app.UseEndpoints(endpt => 
-// {
-//     endpt.MapHub<EventHub>("/chats");
-// });
 app.MapHub<EventHub>("/chats");
 app.Run();
