@@ -9,12 +9,11 @@ const Event = () => {
       .build()
   );
   const [user, setUser] = useState("");
+  const [selected, setSelected] = useState("");
   const [room, setRoom] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    // console.log("usedEfe")
-
     connection.on("SendMessage", (message) => {
       console.log(message);
       // setMessages(messages => [...messages, {user, message}])
@@ -25,10 +24,6 @@ const Event = () => {
     e.preventDefault();
     const chatMessage = { user: user, room: room };
     try {
-      // const connection = new HubConnectionBuilder()
-      //                     .withUrl('https://localhost:5000/chats')
-      //                     .withAutomaticReconnect()
-      //                     .build();
       connection.on("RecieveMessage", (user, message) => {
         setMessages((messages) => [...messages, { user, message }]);
       });
@@ -41,10 +36,10 @@ const Event = () => {
     }
   };
 
-  const startGame = (e) =>{
+  const startGame = (e) => {
     e.preventDefault();
-    console.log(e)
-  }
+    console.log(e);
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -71,19 +66,41 @@ const Event = () => {
             </select>
           </div>
           <div className="col-4">
-            <button className="btn btn-secondary" onClick={e => startGame(e)} >Start Game</button>
+            <button className="btn btn-secondary" onClick={(e) => startGame(e)}>
+              Start Game
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="row" style={{marginTop: "50px"}}>
+      <div className="row" style={{ marginTop: "50px" }}>
         <div className=" col-6 text-secondary left">
-          <h2>User A</h2>
+          <h2 className="users">User A</h2>
+          <p className="text-center select h2">Make Your Selection</p>
+          <div className="row">
+            <div className="col-md-4 text-end">
+              <button id="rock" className="rock" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}} ></button>
+            </div>
+            <div className="col-md-4 text-center">
+              <button id="paper" className="paper" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}}></button>
+            </div>
+            <div className="col-md-4">
+              <button id="scissor" className="scissor" onClick={e =>{ e.preventDefault(); setSelected(e.target.id);}}></button>
+            </div>
+          </div>
+          <div className="selected">
+            <p className=" h2 my-auto">Selected:</p>    
+            { selected === "rock"? <div className="selected-rock"></div> :
+              selected === "paper"? <div className="selected-paper"></div> :
+              selected === "scissor"? <div className="selected-scissor"></div> : <p>None</p>
+            }
+          </div>
         </div>
         <div className="col-6 text-end text-secondary">
-          <h2>User B</h2>
+          <h2 className="users">User B</h2>
         </div>
       </div>
+      <p>{selected}</p>
 
       <form>
         <label htmlFor="user">User:</label>
