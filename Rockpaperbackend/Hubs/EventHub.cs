@@ -10,14 +10,16 @@ namespace Rockpaperbackend.Hubs
     public class EventHub: Hub 
     {
         private readonly string[] _machineSelections;
+        private readonly Random rnd;
         public EventHub()
         {
             _machineSelections = new string[] { "rock", "paper", "scissor" };
+            rnd = new Random();
         }
 
         public async Task startGame()
         {
-            Random rnd = new Random();
+    
             int index1 = rnd.Next(_machineSelections.Length);
             string machineSelection1 = _machineSelections[index1];
             int winner;
@@ -64,7 +66,6 @@ namespace Rockpaperbackend.Hubs
         }
         public async Task sendSelection(string selected)
         {
-            Random rnd = new Random();
             int index = rnd.Next(_machineSelections.Length);
             string machineSelection = _machineSelections[index];
             string result;

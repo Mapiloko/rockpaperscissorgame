@@ -31,11 +31,11 @@ const Event = () => {
       setaSelection(selection1);
       setbSelection(selection2);
       setWinner(winner);
-      console.log(selection1, selection2, winner);
     });
   }, [connection]);
 
   const startGame = async (e) => {
+
     e.preventDefault();
     setStarted(true);
     setStartedbtn("Started Game");
