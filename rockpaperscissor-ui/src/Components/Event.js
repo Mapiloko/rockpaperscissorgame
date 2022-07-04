@@ -11,6 +11,7 @@ const Event = () => {
   const [selected, setSelected] = useState("");
   const [selection, setSelection] = useState("");
   const [result, setResult] = useState("");
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     connection.on("SendSelection", (result, selectionM) => {
@@ -22,6 +23,7 @@ const Event = () => {
 
   const startGame = async (e) => {
     e.preventDefault();
+    setStarted(true);
     await connection.start();
   };
 
@@ -53,8 +55,7 @@ const Event = () => {
           </div>
         </div>
       </div>
-
-      <div className="row" style={{ marginTop: "50px" }}>
+      {started && <div className="row" style={{ marginTop: "50px" }}>
         <div className=" col-6 text-secondary left">
           <h2 className="users">User A</h2>
           <p className="text-center select h2">Make Your Selection</p>
@@ -70,7 +71,7 @@ const Event = () => {
             </div>
           </div>
           <div className="selected">
-            <p className=" h2 my-auto">Selected:</p>    
+            <p className=" h2 my-auto">Selected By User:</p>    
             { selected === "rock"? <div className="selected-rock"></div> :
               selected === "paper"? <div className="selected-paper"></div> :
               selected === "scissor"? <div className="selected-scissor"></div> : <p>None</p>
@@ -78,9 +79,21 @@ const Event = () => {
           </div>
         </div>
         <div className="col-6 text-end text-secondary">
-          <h2 className="users">User B</h2>
+          <h2 className="users">User B-Machine</h2>
+
+          <div className="selected-machine">
+            <p className=" h2 my-auto">Selected By Machine:</p>    
+            { selection === "rock"? <div className="selected-rockflip"></div> :
+              selection === "paper"? <div className="selected-paperflip"></div> :
+              selection === "scissor"? <div className="selected-scissorflip"></div> : <p>None</p>
+            }
+          </div>
         </div>
-      </div>
+      </div>   
+      }
+      {result==="win"? <div className="text-center"> <p className="h2 text-center result bg-success d-inline">You Have Won This Round!!!</p></div> :
+       result==="loss"? <div className="text-center"> <p className="h2 text-center result bg-primary d-inline">You Have Lost This Round!!!</p></div> : 
+       result==="draw"? <div className="text-center"><p className="h2 text-center result bg-info d-inline">Tie!!! Select Again</p></div> : <p></p> }
     </div>
   );
 };

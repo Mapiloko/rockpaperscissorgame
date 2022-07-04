@@ -40,6 +40,15 @@
   display: flex;
   justify-content: space-between;
 }
+.selected-machine{
+  margin-top: 220px;
+  border-top: 2px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+  padding-right: 115px;
+  display: flex;
+  justify-content: space-between;
+}
 .rock{
   background-image: url("../public/rock.png");
   background-repeat: no-repeat;
@@ -89,4 +98,34 @@
     height: 70px;
     width: 80px;
     border-radius: 5px;
+}
+.selected-rockflip{
+  background-image: url("../public/rockflip.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 70px;
+  width: 80px;
+  border-radius: 5px;
+}
+.selected-paperflip{
+  background-image: url("../public/paperflip.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 70px;
+  width: 80px;
+  border-radius: 5px;
+}
+.selected-scissorflip{
+    background-image: url("../public/scissorflip.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 70px;
+    width: 80px;
+    border-radius: 5px;
+}
+.result{
+  margin-top: 20px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
