@@ -14,6 +14,54 @@ namespace Rockpaperbackend.Hubs
         {
             _machineSelections = new string[] { "rock", "paper", "scissor" };
         }
+
+        public async Task startGame()
+        {
+            Random rnd = new Random();
+            int index1 = rnd.Next(_machineSelections.Length);
+            string machineSelection1 = _machineSelections[index1];
+            int winner;
+
+            int index2 = rnd.Next(_machineSelections.Length);
+            string machineSelection2 = _machineSelections[index2];
+            
+            if(machineSelection1 == machineSelection2)
+            {
+                winner = 0;
+            }
+            else
+            {
+                switch (index1) 
+                {
+                    case 0:
+                        {
+                            if(index2 == 2)
+                                winner = 1;
+                            else
+                                winner = 2;
+                        }
+                        break;
+                    case 1:
+                        {
+                            if(index2 == 2)
+                                winner = 2;
+                            else
+                                winner = 1;
+                        }
+                        break;
+                    default:
+                        {
+                            if(index2 == 1)
+                                winner = 1;
+                            else
+                                winner = 2;
+                        }
+                        break;
+                }
+            }
+
+            await Clients.All.SendAsync("gameResults", machineSelection1, machineSelection2, winner);
+        }
         public async Task sendSelection(string selected)
         {
             Random rnd = new Random();
